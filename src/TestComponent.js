@@ -1,6 +1,5 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
 
 import {GridList, GridTile} from 'material-ui/GridList';
 import Checkbox from 'material-ui/Checkbox';
@@ -13,6 +12,9 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 class TestComponent extends React.Component{
 
@@ -37,6 +39,10 @@ class TestComponent extends React.Component{
             }, paper : {
                 margin: 20,
                 display: 'inline-block',
+            }, contentAdd : {
+                marginRight: 20,
+                zIndex : 100,
+                position: 'absolute',
             }
             
         };
@@ -87,6 +93,11 @@ class TestComponent extends React.Component{
             <div style={styles.gridList}>
                 <List>
                     <Subheader>TODO List</Subheader>
+                    <div style={{textAlign : 'center'}}>
+                        <FloatingActionButton style={styles.contentAdd} zDepth={2}>
+                            <ContentAdd/>
+                        </FloatingActionButton>
+                    </div>  
                     {tilesData.map((item) => (
                         <ListItem
                             key={item.id} 
@@ -98,7 +109,7 @@ class TestComponent extends React.Component{
                                 </ListItem>
                             ]}
                             />
-                    ))}
+                    ))}  
                 </List>
                 <Divider />
             </div>
@@ -106,9 +117,7 @@ class TestComponent extends React.Component{
 
         return(
             <div style={styles.root}>
-                <AppBar title="TODO List">
-                    <FlatButton label="Secondary" style={styles.flatButton} />
-                </AppBar>
+                <AppBar title="TODO List" />
                 {listComponent()}
             </div>
         );
