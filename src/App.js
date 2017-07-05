@@ -4,16 +4,15 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
  
 import TestComponent from './TestComponent.js';
 
+injectTapEventPlugin();
+
 class App extends Component {
   render() {
     return (
-      <div>
-        <MuiThemeProvider>
-          <TestComponent/>
-        </MuiThemeProvider>
-      </div>
+      <MuiThemeProvider>
+        <TestComponent/>
+      </MuiThemeProvider>
     );
   }
 }
-injectTapEventPlugin();
 export default App;

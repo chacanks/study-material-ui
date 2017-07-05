@@ -15,10 +15,50 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import FlatButton from 'material-ui/FlatButton';
+
+
+import Dialog from 'material-ui/Dialog';
+import RaisedButton from 'material-ui/RaisedButton';
+
+import TextField from 'material-ui/TextField';
+
+function addAppBarTap(){
+    console.log('addAppBarTap');
+    alert('addAppBarTap');
+};
+
 
 class TestComponent extends React.Component{
 
+    state = {
+        open: false,
+    };
+
+    handleOpen = () => {
+        this.setState({open: true});
+    };
+
+    handleClose = () => {
+        this.setState({open: false});
+    };
+    
+
     render(){
+
+        const addItemAction = [
+            <FlatButton
+                label="Cancel"
+                primary={true}
+                onTouchTap={this.handleClose}
+            />,
+            <FlatButton
+                label="Submit"
+                primary={true}
+                keyboardFocused={true}
+                onTouchTap={this.handleClose}
+            />,
+        ];
 
         const styles = {
             root: {
@@ -40,16 +80,17 @@ class TestComponent extends React.Component{
                 margin: 20,
                 display: 'inline-block',
             }, contentAdd : {
-                marginRight: 20,
+                marginLeft: -28,
                 zIndex : 100,
                 position: 'absolute',
+                marginTop : 380,
             }
             
         };
 
         const tilesData = [];
 
-        for( var i = 0; i < 100; i++){
+        for( var i = 0; i < 30; i++){
             
             tilesData.push({
                   id : i
@@ -109,16 +150,53 @@ class TestComponent extends React.Component{
                                 </ListItem>
                             ]}
                             />
-                    ))}  
+                    ))}
                 </List>
                 <Divider />
             </div>
         );
 
+        const addItemButton = () => (
+            <FlatButton 
+                label="Add" 
+                onTouchTap={this.handleOpen}
+            />
+        );
+
+        const addItemDialog = () => (
+            <div>                
+                <Dialog
+                title="+ What do you want to do ?"
+                actions={addItemAction}
+                modal={false}
+                open={this.state.open}
+                onRequestClose={this.handleClose}
+                autoScrollBodyContent={true}
+                >
+                <TextField 
+                    hintText="오늘은 꼭~ React 마스터!!"
+                    fullWidth={true}
+                />
+                <TextField 
+                    hintText="아침먹고 공부! 점심먹고 공부! 저녁먹고 공부! 자기전에 공부!"
+                    fullWidth={true}
+                    multiLine={true}
+                    rows={2}
+                    rowsMax={4}
+                />
+                </Dialog>
+            </div>
+        );
+
         return(
             <div style={styles.root}>
-                <AppBar title="TODO List" />
+                <AppBar 
+                    title="TODO List" 
+                    iconElementLeft={<div/>}
+                    iconElementRight={addItemButton()}
+                />
                 {listComponent()}
+                {addItemDialog()}
             </div>
         );
     }
